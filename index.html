@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Valentine za tebe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #ffe6f0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        margin-bottom: 30px;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 24px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+      }
+      #yes {
+        background: #ff4d88;
+        color: white;
+      }
+      #no {
+        background: #ffffff;
+        color: #ff4d88;
+        border: 2px solid #ff4d88;
+      }
+      #result {
+        margin-top: 30px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hoćeš li biti moj Valentine? 💘</h1>
+    <div>
+      <button id="yes">DA</button>
+      <button id="no">NE</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+      const yesBtn = document.getElementById("yes");
+      const noBtn = document.getElementById("no");
+      const result = document.getElementById("result");
+
+      yesBtn.onclick = () => {
+        result.innerHTML = "<h2>Znao sam! 💖</h2><p>Jedva čekam naš dejt!</p>";
+      };
+
+      noBtn.onclick = () => {
+        result.innerHTML = "<h2>Ajde još jednom razmisli 😜</h2>";
+      };
+    </script>
+  </body>
+</html>
