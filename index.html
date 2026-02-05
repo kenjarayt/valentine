@@ -15,19 +15,133 @@
       body {
         font-family: Arial, sans-serif;
         text-align: center;
-        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        background: radial-gradient(
+          circle at top,
+          #ffe6f0 0%,
+          #ff9a9e 35%,
+          #fecfef 100%
+        );
         min-height: 100vh;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         padding: 16px;
+        overflow: hidden;
+        position: relative;
+        color: #42213d;
+      }
+
+      .hearts {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: -60px;
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.7);
+        animation: floatUp 10s linear infinite;
+      }
+
+      .heart:nth-child(1) {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .heart:nth-child(2) {
+        left: 25%;
+        animation-delay: 2s;
+      }
+      .heart:nth-child(3) {
+        left: 40%;
+        animation-delay: 4s;
+      }
+      .heart:nth-child(4) {
+        left: 55%;
+        animation-delay: 1s;
+      }
+      .heart:nth-child(5) {
+        left: 70%;
+        animation-delay: 3s;
+      }
+      .heart:nth-child(6) {
+        left: 85%;
+        animation-delay: 5s;
+      }
+      .heart:nth-child(7) {
+        left: 15%;
+        animation-delay: 1.5s;
+      }
+      .heart:nth-child(8) {
+        left: 60%;
+        animation-delay: 3.5s;
+      }
+      .heart:nth-child(9) {
+        left: 80%;
+        animation-delay: 6s;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(0.8);
+          opacity: 0;
+        }
+        20% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-110vh) scale(1.2);
+          opacity: 0;
+        }
+      }
+
+      .fireworks {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        z-index: 5;
+        overflow: hidden;
+      }
+
+      .firework-heart {
+        position: absolute;
+        font-size: 28px;
+        opacity: 0;
+        animation: explode 1000ms ease-out forwards;
+      }
+
+      @keyframes explode {
+        0% {
+          transform: translate(0, 0) scale(0.6);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--dx), var(--dy)) scale(1.1);
+          opacity: 0;
+        }
+      }
+
+      .card {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        padding: 28px 22px 24px;
+        max-width: 420px;
+        width: 100%;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(6px);
       }
 
       h1 {
-        margin-bottom: 24px;
+        margin-bottom: 16px;
         font-size: 2rem;
-        color: #42213d;
       }
 
       p.subtitle {
@@ -36,11 +150,11 @@
       }
 
       .buttons {
-        margin-bottom: 24px;
+        margin-bottom: 18px;
       }
 
       button {
-        margin: 10px;
+        margin: 8px;
         padding: 10px 24px;
         font-size: 18px;
         border-radius: 999px;
@@ -60,7 +174,7 @@
       #yes {
         background: #ff4d88;
         color: #fff;
-        box-shadow: 0 4px 10px rgba(255, 77, 136, 0.4);
+        box-shadow: 0 6px 14px rgba(255, 77, 136, 0.55);
       }
 
       #yes:hover {
@@ -72,6 +186,7 @@
         color: #ff4d88;
         border: 2px solid #ff4d88;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        position: relative;
       }
 
       #no:hover {
@@ -79,9 +194,8 @@
       }
 
       #result {
-        margin-top: 10px;
+        margin-top: 6px;
         font-size: 20px;
-        color: #42213d;
       }
 
       #snackbar {
@@ -107,18 +221,44 @@
         visibility: visible;
         opacity: 1;
       }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.6rem;
+        }
+
+        button {
+          width: 120px;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1>Hoćeš li biti moj Valentine? 💘</h1>
-    <p class="subtitle">(Molim te odaberi pažljivo 😉)</p>
-
-    <div class="buttons">
-      <button id="yes">DA</button>
-      <button id="no">NE</button>
+    <div class="hearts">
+      <div class="heart">❤</div>
+      <div class="heart">💗</div>
+      <div class="heart">❤</div>
+      <div class="heart">💗</div>
+      <div class="heart">💖</div>
+      <div class="heart">❤</div>
+      <div class="heart">💗</div>
+      <div class="heart">💖</div>
+      <div class="heart">❤</div>
     </div>
 
-    <div id="result"></div>
+    <div class="fireworks" id="fireworks"></div>
+
+    <div class="card">
+      <h1>Dunja, hoćeš li biti moj Valentine? 💖</h1>
+      <p class="subtitle">(Molim te odaberi pažljivo 😉)</p>
+
+      <div class="buttons">
+        <button id="yes">DA</button>
+        <button id="no">NE</button>
+      </div>
+
+      <div id="result"></div>
+    </div>
 
     <div id="snackbar">Nažalost, opcija NE trenutačno nije dostupna 💌</div>
 
@@ -127,9 +267,12 @@
       const noBtn = document.getElementById("no");
       const result = document.getElementById("result");
       const snackbar = document.getElementById("snackbar");
+      const fireworksContainer = document.getElementById("fireworks");
 
       yesBtn.onclick = () => {
-        result.innerHTML = "<h2>Znao sam! 💖</h2><p>Jedva čekam naš dejt!</p>";
+        result.innerHTML =
+          "<h2> JEEJ! Znao sam! 💖</h2><p>Očekuj poziv na date!</p>";
+        launchFireworks();
       };
 
       noBtn.onclick = () => {
@@ -138,6 +281,45 @@
           snackbar.classList.remove("show");
         }, 3000);
       };
+
+      function launchFireworks() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 3;
+
+        for (let i = 0; i < 5; i++) {
+          const offsetX = (Math.random() - 0.5) * 150;
+          const offsetY = (Math.random() - 0.5) * 80;
+          createExplosion(centerX + offsetX, centerY + offsetY);
+        }
+      }
+
+      function createExplosion(x, y) {
+        const hearts = ["❤️", "💖", "💗"];
+        const particles = 35;
+
+        for (let i = 0; i < particles; i++) {
+          const el = document.createElement("div");
+          el.classList.add("firework-heart");
+
+          const angle = (Math.PI * 2 * i) / particles;
+          const distance = 140 + Math.random() * 80;
+
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance;
+
+          el.style.left = x + "px";
+          el.style.top = y + "px";
+          el.style.setProperty("--dx", dx + "px");
+          el.style.setProperty("--dy", dy + "px");
+          el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+          fireworksContainer.appendChild(el);
+
+          setTimeout(() => {
+            el.remove();
+          }, 1100);
+        }
+      }
     </script>
   </body>
 </html>
