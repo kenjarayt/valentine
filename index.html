@@ -3,63 +3,140 @@
   <head>
     <meta charset="UTF-8" />
     <title>Valentine za tebe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       body {
         font-family: Arial, sans-serif;
         text-align: center;
-        background: #ffe6f0;
+        background: linear-gradient(135deg, #ff9a9e, #fecfef);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 16px;
       }
+
       h1 {
-        margin-bottom: 30px;
+        margin-bottom: 24px;
+        font-size: 2rem;
+        color: #42213d;
       }
+
+      p.subtitle {
+        margin-bottom: 24px;
+        color: #5c3b58;
+      }
+
+      .buttons {
+        margin-bottom: 24px;
+      }
+
       button {
         margin: 10px;
         padding: 10px 24px;
         font-size: 18px;
-        border-radius: 8px;
+        border-radius: 999px;
         border: none;
         cursor: pointer;
+        transition:
+          transform 0.1s ease,
+          box-shadow 0.1s ease,
+          background-color 0.2s ease;
       }
+
+      button:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
       #yes {
         background: #ff4d88;
-        color: white;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(255, 77, 136, 0.4);
       }
+
+      #yes:hover {
+        background: #ff336f;
+      }
+
       #no {
         background: #ffffff;
         color: #ff4d88;
         border: 2px solid #ff4d88;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       }
+
+      #no:hover {
+        background: #ffe6f0;
+      }
+
       #result {
-        margin-top: 30px;
+        margin-top: 10px;
         font-size: 20px;
+        color: #42213d;
+      }
+
+      #snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        max-width: 90%;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 8px;
+        padding: 16px;
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        z-index: 10;
+        font-size: 17px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      #snackbar.show {
+        visibility: visible;
+        opacity: 1;
       }
     </style>
   </head>
   <body>
     <h1>Hoćeš li biti moj Valentine? 💘</h1>
-    <div>
+    <p class="subtitle">(Molim te odaberi pažljivo 😉)</p>
+
+    <div class="buttons">
       <button id="yes">DA</button>
       <button id="no">NE</button>
     </div>
 
     <div id="result"></div>
 
+    <div id="snackbar">Nažalost, opcija NE trenutačno nije dostupna 💌</div>
+
     <script>
       const yesBtn = document.getElementById("yes");
       const noBtn = document.getElementById("no");
       const result = document.getElementById("result");
+      const snackbar = document.getElementById("snackbar");
 
       yesBtn.onclick = () => {
         result.innerHTML = "<h2>Znao sam! 💖</h2><p>Jedva čekam naš dejt!</p>";
       };
 
       noBtn.onclick = () => {
-        result.innerHTML = "<h2>Ajde još jednom razmisli 😜</h2>";
+        snackbar.classList.add("show");
+        setTimeout(() => {
+          snackbar.classList.remove("show");
+        }, 3000);
       };
     </script>
   </body>
